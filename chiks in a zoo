@@ -1,4 +1,5 @@
- deque<long long int>dq;
+C++ code
+deque<long long int>dq;
 	     long long int pre_total=1;
 	     dq.push_back(1);
 	       if(n==1)return 1;
@@ -21,3 +22,97 @@
 	        dq.pop_front();
 	    }
 	    return ans;
+ //java code
+  ArrayDeque<Long>dq=new ArrayDeque<Long>();
+        long pre_total=1;
+        dq.addLast(pre_total);
+        if(N==1)return 1;
+       for(int i=2;i<=6;i++)
+       {
+           dq.addLast(2*pre_total);
+           pre_total+=2*pre_total;
+           if(i==N)return pre_total;
+       } 
+       for(int i=7;i<=N;i++)
+       {
+           pre_total-=dq.getFirst();
+           dq.removeFirst();
+           dq.addLast(2*pre_total);
+           pre_total+=2*pre_total;
+       }
+       long ans=0;
+       while(dq.size()!=0)
+       {
+          ans+=dq.getLast();
+          dq.removeLast();
+       }
+       return ans;
+//ArrayList/vector implemenetaion 
+      cpp
+	    vector<long long int>cc_temp;
+	    long long int sum=1;
+	    long long int pre_total=1;
+	    cc_temp.push_back(sum);
+	     for(int i=1;i<6;i++)
+	     {
+	     long long int curr_chicks=2*pre_total;
+	       cc_temp.push_back(curr_chicks);
+	       pre_total+=cc_temp.back();
+	     
+	     }
+	     if(n<=6)
+	     {
+	         long long int ans=0;
+	         for(int i=0;i<n;i++)
+	         {
+	             ans+=cc_temp[i];
+	         }
+	         return ans;
+	     }
+	      for(int i=6;i<n;i++)
+	      {
+	        long long int t=cc_temp[i-6];
+	        pre_total=pre_total-t;
+	        long long int curr_temp=2*pre_total;
+	        cc_temp.push_back(curr_temp);
+	        pre_total+=cc_temp.back();
+	           
+	      }
+	     long long int ans=0;
+	     for(int i=n-1;i>=n-6;i--)ans+=cc_temp[i];
+	     return ans;
+   //java
+ public long NoOfChicks(int N)
+    {
+        // Code here
+       ArrayList<Long>helping_vector=new ArrayList <Long> ();
+        long pre_total=1;
+        helping_vector.add(pre_total);
+        for(int i=1;i<6;i++)
+        {
+          helping_vector.add(2*pre_total);
+          pre_total+=2*pre_total;
+        }
+       if(N<=6)
+        {
+            long ans=0;
+            for(int i=0;i<N;i++)
+            {
+               ans=(ans+helping_vector.get(i));
+            }
+            return ans;
+        }
+      for(int i=6;i<N;i++)
+       {
+        pre_total-=helping_vector.get(i-6);
+        helping_vector.add(2*pre_total);
+          pre_total+=2*pre_total;
+        }
+        long ans=0;
+        for(int i=N-1;i>=N-6;i--)
+        {
+           ans+=helping_vector.get(i);
+        }
+     return ans;
+    }
+}
